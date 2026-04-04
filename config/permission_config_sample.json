@@ -1,0 +1,39 @@
+{
+  "database": "marketing_db",
+  "table": "campaign_spend",
+  "redshift_schema": "marketing",
+  "folder_name": "Marketing Analytics",
+  "dataset_display_name": "Campaign Spend Dashboard",
+  "permissions": [
+    {
+      "principal": "arn:aws:quicksight:us-east-1:123456789:user/default/john.doe",
+      "actions": [
+        "quicksight:DescribeDataSet",
+        "quicksight:QueryDataSet",
+        "quicksight:ListTagsForResource",
+        "quicksight:DescribeDataSetPermissions"
+      ]
+    },
+    {
+      "principal": "arn:aws:quicksight:us-east-1:123456789:group/default/marketing-analysts",
+      "actions": [
+        "quicksight:DescribeDataSet",
+        "quicksight:QueryDataSet",
+        "quicksight:ListTagsForResource",
+        "quicksight:DescribeDataSetPermissions"
+      ]
+    },
+    {
+      "principal": "arn:aws:quicksight:us-east-1:123456789:user/default/admin",
+      "actions": [
+        "quicksight:DescribeDataSet",
+        "quicksight:QueryDataSet",
+        "quicksight:UpdateDataSet",
+        "quicksight:DeleteDataSet",
+        "quicksight:UpdateDataSetPermissions",
+        "quicksight:ListTagsForResource",
+        "quicksight:DescribeDataSetPermissions"
+      ]
+    }
+  ]
+}

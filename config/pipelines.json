@@ -1,0 +1,38 @@
+[
+  {
+    "dag_id": "marketing_campaign_spend_pipeline",
+    "owner": "marketing-data-team",
+    "source_bucket": "my-data-landing-bucket",
+    "source_key_prefix": "raw/marketing/campaign_spend/",
+    "source_path": "s3://my-data-landing-bucket/raw/marketing/campaign_spend/",
+    "iceberg_database": "marketing_db",
+    "iceberg_table": "campaign_spend",
+    "iceberg_warehouse": "s3://my-iceberg-warehouse/",
+    "redshift_schema": "marketing",
+    "glue_job_name": "data-platform-etl",
+    "partition_field": "partition_date",
+    "schedule": "0 * * * *",
+    "sla_minutes": 30,
+    "min_rows": 100,
+    "alert_email": "marketing-data@company.com",
+    "region": "us-east-1"
+  },
+  {
+    "dag_id": "finance_budget_pipeline",
+    "owner": "finance-data-team",
+    "source_bucket": "my-data-landing-bucket",
+    "source_key_prefix": "raw/finance/budget/",
+    "source_path": "s3://my-data-landing-bucket/raw/finance/budget/",
+    "iceberg_database": "finance_db",
+    "iceberg_table": "budget_allocations",
+    "iceberg_warehouse": "s3://my-iceberg-warehouse/",
+    "redshift_schema": "finance",
+    "glue_job_name": "data-platform-etl",
+    "partition_field": "partition_date",
+    "schedule": "0 */6 * * *",
+    "sla_minutes": 60,
+    "min_rows": 10,
+    "alert_email": "finance-data@company.com",
+    "region": "us-east-1"
+  }
+]
